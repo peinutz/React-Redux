@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-export function createCourse(course) {
-    return {type: 'CREATE_COURSE', course}
-=======
 import courseApi from '../api/mockCourseApi';
 
 export function loadCoursesSuccess(courses) {
@@ -16,5 +12,4 @@ export function loadCourses() {
          throw(error);
      });
  }
->>>>>>> 28ecc429c62b6110f9f6852d0b1788b3fa0e3aee
 }

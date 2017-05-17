@@ -15,7 +15,6 @@ const store = configureStore();
 store.dispatch(loadCourses());
 store.dispatch(loadAuthors());
 
-const store = configureStore();
 
 render(
   <Provider store={store}>
