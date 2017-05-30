@@ -3,13 +3,14 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as courseActions from '../../actions/courseActions'
 import CourseForm from './CourseForm'
+import toastr from 'toastr'
 
 
 const propTypes = {}
 
 const defaultProps = {}
 
-class ManageCoursePage extends Component {
+export class ManageCoursePage extends Component {
     constructor(props, context) {
         super(props)
         this.state = {
@@ -39,7 +40,10 @@ class ManageCoursePage extends Component {
     saveCourse(evt) {
         evt.preventDefault();
         const newCourse = this.state.course;
-        this.props.actions.saveCourse(newCourse).then(() => this.context.router.push('/courses'));
+        this.props.actions.saveCourse(newCourse).then(() => this.context.router.push('/courses'))
+        .catch(error => { 
+            toastr.error(error);
+        });
 
     }
 
