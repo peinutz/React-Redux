@@ -26,6 +26,8 @@ export default {
   //Tell webpack the types of files we want to handle, with loaders(pre-processers, transpilers. last files have to do with boostrap files (fonts))
   module: {
     loaders: [
+      // Transform JSX in .jsx files
+
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
       {test: /(\.css)$/, loaders: ['style', 'css']},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},

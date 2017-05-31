@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as courseActions from '../../actions/courseActions'
 import CourseForm from './CourseForm'
 import toastr from 'toastr'
+import {authorsFormattedForDropdown} from '../../selectors/selectors'
 
 
 const propTypes = {}
@@ -39,12 +40,28 @@ export class ManageCoursePage extends Component {
 
     saveCourse(evt) {
         evt.preventDefault();
+        if(!this.courseFormIsValid()) {
+            return;
+        }
         const newCourse = this.state.course;
         this.props.actions.saveCourse(newCourse).then(() => this.context.router.push('/courses'))
         .catch(error => { 
             toastr.error(error);
         });
 
+    }
+
+    courseFormIsValid() {
+        let formIsValid = true;
+        let errors = {};
+
+        if(this.state.course.title.length < 5) {
+            errors.title = 'Title must be at least 5 characters';
+            formIsValid = false;
+        }
+
+        this.setState({errors:errors});
+        return formIsValid;
     }
 
     render() {
@@ -86,16 +103,9 @@ function mapStateToProps(state, ownProps) {
         course = getCourseById(state.courses,courseId);
     }
 
-    const authorsFormattedForDropdown = state.authors.map(author => {
-        return {
-            value: author.id,
-            text: author.firstName + '' + author.lastName
-        }
-    })
-
     return {
         course:course,
-        authors: authorsFormattedForDropdown
+        authors: authorsFormattedForDropdown(state.authors)
     }
 }
 
